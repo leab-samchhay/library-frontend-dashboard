@@ -431,7 +431,7 @@ const ReturnBook = () => {
                             src={
                               item.image.startsWith("http")
                                 ? item.image
-                                : `http://127.0.0.1:8000/storage/${item.image}`
+                                : `https://library-system.duckdns.org/storage/${item.image}`
                             }
                             alt={item.title}
                             className="h-10 w-8 object-cover rounded shadow-xs"
