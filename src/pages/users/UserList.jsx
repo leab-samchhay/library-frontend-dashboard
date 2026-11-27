@@ -162,30 +162,39 @@ const UserList = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody className='border-2'>
-                            {userData.map((item,index) => (
-                                <TableRow key={index} className="border-1">
-                                    <TableCell>{(pagination.currenPage - 1) * perPage + index + 1}</TableCell>
-                                    <TableCell className="font-medium text-slate-700 dark:text-slate-300">{item.name}</TableCell>
+                            {userData
+                                .filter((item) => {
+                                    const name = item.name?.trim().toLowerCase();
+                                    return name !== "admin" && name !== "user";
+                                })
+                                .map((item, index) => (
+                                    <TableRow key={item.id ?? index} className="border">
+                                    <TableCell>
+                                        {(pagination.currenPage - 1) * perPage + index + 1}
+                                    </TableCell>
+                                    <TableCell className="font-medium text-slate-700 dark:text-slate-300">
+                                        {item.name}oo
+                                    </TableCell>
                                     <TableCell className="text-slate-400">{item.email}</TableCell>
                                     <TableCell>
-                                        <div className="bg-slate-50 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700 px-2 py-1 rounded-sm text-xs truncate w-24">
-                                            $2y$12$M0lkWo1xQ...
+                                        <div className="w-24 truncate rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-xs text-slate-400 dark:border-slate-700 dark:bg-slate-800">
+                                        $2y$12$M0lkWo1xQ...
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <span className="bg-indigo-100 text-indigo-500 font-medium px-2 py-1 rounded-sm text-xs">
-                                            {item.role || 'Casheir'}
+                                        <span className="rounded-sm bg-indigo-100 px-2 py-1 text-xs font-medium text-indigo-500">
+                                        {item.role || "Cashier"}
                                         </span>
                                     </TableCell>
                                     <TableCell>
                                         {item.status ? (
-                                            <span className="bg-green-100 text-green-500 font-medium px-2 py-1 rounded-sm text-xs">
-                                                Active
-                                            </span>
+                                        <span className="rounded-sm bg-green-100 px-2 py-1 text-xs font-medium text-green-500">
+                                            Active
+                                        </span>
                                         ) : (
-                                            <span className="bg-red-100 text-red-500 font-medium px-2 py-1 rounded-sm text-xs">
-                                                Inactive
-                                            </span>
+                                        <span className="rounded-sm bg-red-100 px-2 py-1 text-xs font-medium text-red-500">
+                                            Inactive
+                                        </span>
                                         )}
                                     </TableCell>
                                     <TableCell>
@@ -193,7 +202,7 @@ const UserList = () => {
                                             onClick={() => navigate(`/user/permission/${item.id}`)}
                                             type="button"
                                             aria-label="Permissions"
-                                            className="group cursor-pointer text-center flex h-8 w-12 items-center justify-center rounded-sm border border-transparent bg-green-100 text-green-500 transition-all duration-200 hover:border-green-200 hover:bg-green-50 active:scale-95"
+                                            className="group flex h-8 w-12 cursor-pointer items-center justify-center rounded-sm border border-transparent bg-green-100 text-center text-green-500 transition-all duration-200 hover:border-green-200 hover:bg-green-50 active:scale-95"
                                         >
                                             <MdVpnKey className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                                         </button>
@@ -222,8 +231,8 @@ const UserList = () => {
                                             </HasPermission>
                                         </div>
                                     </TableCell>
-                                </TableRow>
-                            ))}
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
 
